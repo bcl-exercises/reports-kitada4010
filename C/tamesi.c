@@ -6,7 +6,7 @@ int main(void){
   int h[MAX] ={0};
   int i;
   for(i=0; i<MAX; i++)
-    printf("%d\n",h[i]);  
+    printf("%d\a\n",h[i]);  
   
   return 0;
 }

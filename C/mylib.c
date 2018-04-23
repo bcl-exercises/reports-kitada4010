@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-FILE* fRopen(char* fname){
+FILE* fRopen(const char fname[]){
   FILE *fp;
   if( (fp=fopen(fname,"r"))==NULL){
     printf("Failed to open %s\n",fname);
@@ -9,7 +9,7 @@ FILE* fRopen(char* fname){
   return fp;
 }
 
-FILE* fWopen(char* fname){
+FILE* fWopen(const char fname[]){
   FILE *fp;
   if( (fp=fopen(fname,"w"))==NULL){
     printf("Failed to open %s\n",fname);

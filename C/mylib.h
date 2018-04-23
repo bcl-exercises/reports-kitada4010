@@ -1,2 +1,2 @@
-FILE* fRopen(char* fname);
-FILE* fWopen(char* fname);
+FILE* fRopen(const char fname[]);
+FILE* fWopen(const char fname[]);
