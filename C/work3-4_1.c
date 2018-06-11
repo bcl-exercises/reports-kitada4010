@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<stdlib.h>
+void Usage(void){
+  printf("Usage: array <natural number>\n");
+}
+
+void write(int a[], int n){
+  int i;
+  for(i=0; i<n; i++)
+    a[i]=i;
+}
+
+void display(int a[], int n){
+  int i;
+  for(i=0; i<n; i++)
+    printf("a[%d]=%d\n",i,a[i]);
+}
+
+/*------------------------------------------------*/
+
+int main(int argc, char *argv[]){
+  int *a, n;
+  if(argc != 2)
+    Usage();
+  else if( (n=atoi(argv[1]))==0)
+    Usage();
+  else{
+    if( (a = (int *)calloc(n,sizeof(int)))==NULL)
+      printf("メモリが確保できませんでした。\n");
+    else{
+      write(a,n);
+      display(a,n);
+      free(a);
+    }
+  }
+  return 0;
+}

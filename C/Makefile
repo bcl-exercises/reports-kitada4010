@@ -16,3 +16,7 @@ work3-3_1: work3-3_1.c
 	${GCC} ${CFLAGS} -o work3-3_1 work3-3_1.c
 work3-3_2: work3-3_2.c
 	${GCC} ${CFLAGS} -o work3-3_2 work3-3_2.c
+work3-4_1: work3-4_1.c
+	${GCC} ${CFLAGS} -o work3-4_1 work3-4_1.c
+work3-4_2: work3-4_2.c
+	${GCC} ${CFLAGS} -o work3-4_2 work3-4_2.c
