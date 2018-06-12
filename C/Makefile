@@ -21,10 +21,12 @@ work3-4_1: work3-4_1.c
 work3-4_2: work3-4_2.c
 	${GCC} ${CFLAGS} -o work3-4_2 work3-4_2.c
 mylib: mylib.c
-	${GCC} ${CFLAGS} -o mylib mylib.c
+	${GCC} ${CFLAGS} -c	 mylib.c
 genrand: genrand.c
 	${GCC} ${CFLAGS} -o genrand genrand.c
-getdist: getdist.c
-	${GCC} ${CFLAGS} -o getdist getdist.c
+getdist.o: getdist.c
+	${GCC} ${CFLAGS} -c getdist.c
+getdist: mylib.o getdist.o
+	${GCC} ${CFLAGS} mylib.o getdist.o -o getdist
 clean:
 	rm -f *~ *.o
