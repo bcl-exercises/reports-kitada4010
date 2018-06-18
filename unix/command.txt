@@ -47,9 +47,9 @@
 2.2.7	wc -m
 	wc -l
 
-2.2.8	nkf -g <faile name>
+2.2.8	nkf -g <file name>
 
-2.2.9	nkf -w <faile name>
+2.2.9	nkf -w <file name>
 
 2.3.1	単語をダブルクリック
 
@@ -84,6 +84,20 @@
 
 2.8.1	ls-lR >ls-lR
 
+2.8.2	less math.h | grep PI
 
+2.8.3	head -50 <file name> | less
 
+2.8.4	tail -50 <file name> | less
 
+2.8.5	cut -f 2 -d "," <file name>
+
+2.8.6	paste data1.txt data2.txt > data3.txt
+
+2.9.1	sed "s/ //g" <file name>
+
+2.9.2	sed "s/     /\t/g" <file name>
+
+2.9.3	sed "s/^[ \t]*//g" <file name> 
+
+3.1	

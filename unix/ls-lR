@@ -1,0 +1,42 @@
+.:
+合計 104
+-rw-r--r-- 1 nodoka nodoka    0  6月  6 02:29 #bzdir#
+-rw-r--r-- 1 nodoka nodoka  293  6月  6 04:04 #bzdir.sh#
+-rw-r--r-- 1 nodoka nodoka   43  6月  6 01:55 arg.sh
+-rw-r--r-- 1 nodoka nodoka   42  6月  6 01:54 arg.sh~
+-rw-r--r-- 1 nodoka nodoka  291  6月  6 04:01 bzdir.sh
+-rw-r--r-- 1 nodoka nodoka  288  6月  6 04:00 bzdir.sh~
+-rw-r--r-- 1 nodoka nodoka  144  6月  6 04:14 bzdir2.sh
+-rw-r--r-- 1 nodoka nodoka   75  6月  6 04:57 bzdir3.sh
+-rw-r--r-- 1 nodoka nodoka   23  6月  6 04:52 bzdir3.sh~
+-rw-rw-r-- 1 nodoka nodoka  807  4月 16 23:27 command.txt
+-rw-rw-r-- 1 nodoka nodoka  180  6月 14 03:02 command.txt~
+-rw-r--r-- 1 nodoka nodoka    0  6月  6 05:28 data1.bz2
+-rw-r--r-- 1 nodoka nodoka   43  6月  5 23:48 data1.txt.bz2
+-rw-r--r-- 1 nodoka nodoka    9  6月  5 23:48 data2.txt
+-rw-r--r-- 1 nodoka nodoka   15  6月  5 23:50 data3.txt
+-rw-r--r-- 1 nodoka nodoka  152  6月  6 00:03 data4.txt
+-rw-r--r-- 1 nodoka nodoka  117  6月  6 00:01 data4.txt~
+-rw-r--r-- 1 nodoka nodoka  167  6月  6 00:45 data5.txt
+-rw-r--r-- 1 nodoka nodoka  166  6月  6 00:06 data5.txt~
+-rw-r--r-- 1 nodoka nodoka   14  6月  6 05:31 gz.txt.bz2
+-rw-r--r-- 1 nodoka nodoka  314  6月  6 06:00 gz2bz2.sh
+-rw-r--r-- 1 nodoka nodoka  144  6月  6 04:14 gz2bz2.sh~
+drwxr-xr-x 2 nodoka nodoka 4096  6月  7 22:10 hahaha
+-rw-r--r-- 1 nodoka nodoka  567  6月  6 04:55 hahaha.tar.bz2
+drwxr-xr-x 2 nodoka nodoka 4096  6月  7 22:10 hogehoge
+-rw-r--r-- 1 nodoka nodoka  125  6月  6 04:55 hogehoge.tar.bz2
+-rw-rw-r-- 1 nodoka nodoka    0  6月 15 22:04 ls-lR
+drwxr-xr-x 2 nodoka nodoka 4096  6月  7 22:10 yattaze
+-rw-r--r-- 1 nodoka nodoka  123  6月  6 04:55 yattaze.tar.bz2
+
+./hahaha:
+合計 8
+-rw-r--r-- 1 nodoka nodoka 10  6月  6 03:50 k.txt
+-rw-r--r-- 1 nodoka nodoka  8  6月  6 03:50 y.txt
+
+./hogehoge:
+合計 0
+
+./yattaze:
+合計 0
