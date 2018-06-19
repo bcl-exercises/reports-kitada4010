@@ -101,3 +101,9 @@
 2.9.3	sed "s/^[ \t]*//g" <file name> 
 
 3.1	
+
+
+4.1	apt update && apt upgrade
+
+4.2	apt install <package name>
+
