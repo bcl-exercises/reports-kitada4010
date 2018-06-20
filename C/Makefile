@@ -24,9 +24,11 @@ mylib: mylib.c
 	${GCC} ${CFLAGS} -c	 mylib.c
 genrand: genrand.c
 	${GCC} ${CFLAGS} -o genrand genrand.c
-getdist.o: getdist.c
+getdist.o: getdist.c mylib.h
 	${GCC} ${CFLAGS} -c getdist.c
 getdist: mylib.o getdist.o
 	${GCC} ${CFLAGS} mylib.o getdist.o -o getdist
 clean:
 	rm -f *~ *.o
+tamesi:	tamesi.c
+	${GCC} ${CFLAGS} -c tamesi.c

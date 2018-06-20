@@ -1,8 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
+#include "mylib.h"
 #define FILE_LENG 100
-#define STRIDE 10
+#define  STRIDE 10
 void Usage(void){
   printf("Usage: getdist [option]  <file>\n");
   printf("option:\n");
@@ -14,12 +15,12 @@ void Usage(void){
 }
 
 int option_n(int option,FILE *input){
-  int i=1, h=0;
+  int i=1, j=0;
   double x;
   if(option%2==0)
-    h=1;
+    j=1;
   while((fscanf(input,"%lf",&x))!=EOF){
-    if(h)
+    if(j)
       printf("%d\t%lf\n",i,x);
     i++;
   }
@@ -33,15 +34,15 @@ int option_n(int option,FILE *input){
   printf("not complate");
   
   
-  }*/
+  }
 
-void option_g(int leng, double x[]){
+void option_g(int leng, const double x[]){
   int h[STRIDE]={0};
   int n=STRIDE, i, j;
   double stride=1.0/STRIDE;
   
   for(i=0; i<leng; i++)
-    h[(x[i]*n)]++;
+    h[(int)(x[i]*n)]++;
   for(i=0; i<n; i++){
     printf("%.2f-%.2f:",i*stride,(i+1)*stride);
     for(j=0; j<x[i]; j++)
@@ -50,13 +51,13 @@ void option_g(int leng, double x[]){
   }
 
 }
+*/
 
 
-
-void option_n(FILE*){
-}
+//void option_a(FILE*){
+//}
   
-int main(int argc, int *argv[]){
+int main(int argc, char *argv[]){
   int i, opt,option=1, leng;
   FILE *input;
   
@@ -84,8 +85,8 @@ int main(int argc, int *argv[]){
     Usage();
 
   else{
-    *input=fRopen(argv[optind]);
-    leng=option_n(option,*input);
+    input=fRopen(argv[optind]);
+    leng=option_n(option,input);
   }
   
   
