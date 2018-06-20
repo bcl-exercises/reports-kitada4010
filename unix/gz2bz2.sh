@@ -1,6 +1,5 @@
 #!/bin/bash
-ls > tamesi.txt
-while read line
+ls | while read line
 do
     if [ ${line##*.} = 'gz' ]; then
 #	echo "$lineは$(wc -c $line|)バイト"
@@ -11,5 +10,4 @@ do
 #       	echo "${line%.*}.bz2は$(wc -c ${line%.*}.bz2 )バイト"
 #	rm gz.txt
     fi
-done < ./tamesi.txt
-rm tamesi.txt
+done 
