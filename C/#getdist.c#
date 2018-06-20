@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
+#include "
 #define FILE_LENG 100
 #define STRIDE 10
 void Usage(void){
