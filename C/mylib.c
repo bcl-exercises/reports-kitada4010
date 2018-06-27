@@ -17,3 +17,21 @@ FILE* fWopen(const char fname[]){
   }
   return fp;
 }
+
+FILE* fRPopen(void){
+  FILE *fp,*write;
+  char data[256];
+  if( (write=fopen("rand.txt","w"))==NULL){
+    printf("Failed to open rand.txt\n");
+    exit(0);
+  }
+  while((fgets(data, 256, stdin))!=NULL)
+    fprintf(write,"%s",data);
+  fclose(write);
+  if( (fp=fopen("rand.txt","r"))==NULL){
+    printf("Failed to open make_rand.txt\n");
+    exit(0);
+  }
+  return fp;
+}
+
