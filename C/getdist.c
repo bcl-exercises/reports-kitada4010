@@ -74,12 +74,12 @@ void option_g(const char fname[]){
 }
 
 
-
+/*------------------------------------------------------*/
   
 int main(int argc, char *argv[]){
   int opt,option=1, leng;
    
-  while((opt = getopt(argc, argv, "hnag:"))!= -1){
+  while((opt = getopt(argc, argv, "gnah:"))!= -1){
     switch (opt){
     case 'n':
       option*=2;
@@ -102,19 +102,12 @@ int main(int argc, char *argv[]){
   if(option==1)
     Usage();
 
-  else{
-    leng=option_n(option,argv[optind]);
-    if(option%3==0)
-      option_a(leng,argv[optind]);
-    if(option%5==0)
-      option_g(argv[optind]);
-   
-    
-  }
-  
-  
 
-  // printf("end\n");
+  leng=option_n(option,argv[optind]);
+  if(option%3==0)
+    option_a(leng,argv[optind]);
+  if(option%5==0)
+    option_g(argv[optind]);
   
   return 0;
 }

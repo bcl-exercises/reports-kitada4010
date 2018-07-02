@@ -77,7 +77,7 @@ void option_g(const char fname[]){
 }
 
 
-
+/*-------------------------------------------------------*/
   
 int main(int argc, char *argv[]){
   int option=1, leng,fs=0;
@@ -106,18 +106,15 @@ int main(int argc, char *argv[]){
   if(option==1)
     Usage();
   
-  else{
-    if(argv[optind]=='\0'){
-      argv[optind]="rand.txt";
-      fs=1;
-    }
-    leng=option_n(option,fs,argv[optind]);
-    if(option%3==0)
-      option_a(leng,argv[optind]);
-    if(option%5==0)
-      option_g(argv[optind]);
-    
+  if(argv[optind]=='\0'){
+    argv[optind]="rand.txt";
+    fs=1;
   }
+  leng=option_n(option,fs,argv[optind]);
+  if(option%3==0)
+    option_a(leng,argv[optind]);
+  if(option%5==0)
+    option_g(argv[optind]);
     
   return 0;
 }

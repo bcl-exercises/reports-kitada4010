@@ -18,6 +18,7 @@ FILE* fWopen(const char fname[]){
   return fp;
 }
 
+
 FILE* fRPopen(void){
   FILE *fp,*write;
   char data[256];

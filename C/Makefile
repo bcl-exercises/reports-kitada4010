@@ -44,3 +44,10 @@ work7-2_b.o: work7-2_b.c mylib.h
 	${GCC} ${CFLAGS} -c work7-2_b.c -lm 
 work7-2_b: work7-2_b.o mylib.o
 	${GCC} ${CFLAGS} mylib.o work7-2_b.o -o work7-2_b -lm
+array: array.c
+	${GCC} ${CFLAGS} -o array array.c
+showarg: showarg.c
+	${GCC} ${CFLAGS} -o showarg showarg.c
+sum: sum.c
+	${GCC} ${CFLAGS} -o sum sum.c
+
