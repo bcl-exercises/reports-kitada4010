@@ -3,7 +3,6 @@
 int main(void){
   int i;
   double x=0.1;
-  //float x=0.1;
   for(i=0; i<MAX; i++){
     x*=0.1;
     x*=10;

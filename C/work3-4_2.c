@@ -2,6 +2,7 @@
 #include<stdlib.h>
 void Usage(void){
   printf("Usage: array <natural number>\n");
+  exit(0);
 }
 
 void write(int a[], int n){
@@ -30,16 +31,17 @@ int main(int argc, char *argv[]){
   int *a, n;
   if(argc != 2)
     Usage();
-  else if( (n=atoi(argv[1]))==0)
+  if( (n=atoi(argv[1]))==0)
     Usage();
-  else{
-    if( (a = (int *)calloc(n*n,sizeof(int)))==NULL)
-      printf("メモリが確保できませんでした。\n");
-    else{
-      write(a,n);
-      display(a,n);
-      free(a);
-    }
+  if( (a = (int *)calloc(n*n,sizeof(int)))==NULL){
+    printf("メモリが確保できませんでした。\n");
+    Usage();
   }
+   
+  write(a,n);
+  display(a,n);
+  free(a);
+   
+  
   return 0;
 }
