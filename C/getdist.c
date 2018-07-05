@@ -108,8 +108,7 @@ int main(int argc, char *argv[]){
     }
   }
 
-  if((frag_n + frag_a + frag_g) == 0)
-    Usage();
+  if((frag_n + frag_a + frag_g) == 0) Usage();
   
   strcpy(file_name, argv[optind]);
   

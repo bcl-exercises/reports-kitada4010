@@ -9,18 +9,19 @@ void Usage(void){
 void write_identity_matrix(int a[], int n){
   int i,j;
   
-  for(i=0; i<n; i++)
+  for(i=0; i<n; i++){
     for(j=0; j<n; j++){
       if(i==j) a[(i*n)+j]=1;
       else a[(i*n)+j]=0;
     }
+  }
 }	  
 
 void display_2d_array(int a[], int n){
   int i,j;
   
   for(i=0; i<n; i++){
-    for(j=0; j<n; j++) printf("%3d ",a[(i*n)+j]);
+    for(j=0; j<n; j++) printf("%3d ", a[(i*n)+j]);
     printf("\n");
   }
 }
@@ -32,15 +33,15 @@ int main(int argc, char *argv[]){
   
   if(argc != 2) Usage();
   
-  if( (n=atoi(argv[1]))==0) Usage();
+  if((n=atoi(argv[1])) == 0) Usage();
   
-  if((a = (int *)calloc(n*n,sizeof(int))) == NULL){
+  if((a = (int *)calloc(n*n, sizeof(int))) == NULL){
     printf("メモリが確保できませんでした。\n");
     Usage();
   }
 
-  write_identity_matrix(a,n);
-  display_2d_array(a,n);
+  write_identity_matrix(a, n);
+  display_2d_array(a, n);
   free(a);
  
   return 0;

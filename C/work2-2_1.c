@@ -1,4 +1,5 @@
 #include<stdio.h>
+
 int z=1;
 
 void func(int *x){ //xをポインタでもってくる

@@ -24,14 +24,18 @@ int count_line(int frag_n, int fs, char fname[]){
   int i=1;
   double x;
   FILE* input;
+
   if(fs) input=fRopen(fname);
   else input=fRPopen();
+
   while((fscanf(input, "%lf", &x)) != EOF){
     if(frag_n)
       printf("%d\t%lf\n", i, x);
     i++;
   }
+
   fclose(input);
+
   return i-1;
 }
 
@@ -42,6 +46,7 @@ void statistics(int len, const char fname[]){
   double rand_data;
   double stde=0.0;
   FILE *input;
+
   input=fRopen(fname);
   
   while((fscanf(input, "%lf", &rand_data)) != EOF){
@@ -111,6 +116,7 @@ int main(int argc, char *argv[]){
     strcpy(file_name, "rand.txt");
     fs=1;
   }
+
   else strcpy(file_name, argv[optind]);
   
   len=count_line(frag_n, fs, file_name);
