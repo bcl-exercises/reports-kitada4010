@@ -1,4 +1,5 @@
 #!/bin/bash
+
 ls | while read line
 do
     if [ -d $line ]; then
