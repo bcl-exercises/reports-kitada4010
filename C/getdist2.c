@@ -2,9 +2,13 @@
 #include<stdlib.h>
 #include<math.h>
 #include<unistd.h>
+#include<string.h>
 #include "mylib.h"
+
 #define FILE_LENG 100
 #define  STRIDE 10
+#define FILE_NAME_MAX 256
+
 void Usage(void){
   printf("Usage: getdist [option]  <file>\n");
   printf("option:\n");
@@ -12,22 +16,19 @@ void Usage(void){
   printf("-n) with line number\n");
   printf("-a) <average> <standard deviation> <minimum> <maximum>\n");
   printf("-g) histogram\n");
+
   exit(0);
 }
 
-int option_n(int option,int fs,char fname[]){
-  int i=1, j=0;
+int count_line(int frag_n, int fs, char fname[]){
+  int i=1;
   double x;
   FILE* input;
-  if(fs==1)
-    input=fRPopen();
-  else
-    input=fRopen(fname);
-  if(option%2==0)
-    j=1;
-  while((fscanf(input,"%lf",&x))!=EOF){
-    if(j)
-      printf("%d\t%lf\n",i,x);
+  if(fs) input=fRopen(fname);
+  else input=fRPopen();
+  while((fscanf(input, "%lf", &x)) != EOF){
+    if(frag_n)
+      printf("%d\t%lf\n", i, x);
     i++;
   }
   fclose(input);
@@ -35,43 +36,46 @@ int option_n(int option,int fs,char fname[]){
 }
 
 
-void option_a(int leng,const char fname[]){
-  double average=0.0, reciprocal=1.0/((double)leng);
+void statistics(int len, const char fname[]){
+  double average=0.0, reciprocal=1.0/((double)len);
   double max=0.0, min=1.0;
-  double data;
+  double rand_data;
   double stde=0.0;
   FILE *input;
   input=fRopen(fname);
-  while((fscanf(input,"%lf",&data))!=EOF){
-    average+=data;
-    stde+=data*data;
-    if(max<data)
-      max=data;
-    if(min>data)
-      min=data;
+  
+  while((fscanf(input, "%lf", &rand_data)) != EOF){
+    average+=rand_data;
+    stde+=rand_data*rand_data;
+    if(max<rand_data) max=rand_data;
+    if(min>rand_data) min=rand_data;
   }
-  printf("average:%lf\n",reciprocal*average);
-  printf("standard deviation:%lf\n",sqrt(reciprocal*stde));
-  printf("minimum:%lf\n",min);
-  printf("maximum:%lf\n",max);
+  
+  printf("average:%lf\n", (reciprocal*average));
+  printf("standard deviation:%lf\n", sqrt(reciprocal*stde));
+  printf("minimum:%lf\n", min);
+  printf("maximum:%lf\n", max);
+
   fclose(input);
 }
 
-void option_g(const char fname[]){
+void histogram(const char fname[]){
   int h[STRIDE]={0};
   int i, j;
-  double stride=1.0/STRIDE, data;
+  double stride=1.0/STRIDE, rand_data;
   FILE* input;
   double n=STRIDE;
+
   input=fRopen(fname);
-  while((fscanf(input,"%lf",&data))!=EOF)
-    h[(int)(data*n)]++;
+  
+  while((fscanf(input, "%lf", &rand_data)) != EOF)
+    h[(int)(rand_data*n)]++;
+
   fclose(input);
   
   for(i=0; i<n; i++){
-    printf("%.2f-%.2f:",i*stride,(i+1)*stride);
-    for(j=0; j<h[i]; j++)
-      printf("*");
+    printf("%.2f-%.2f:", (i*stride), ((i+1)*stride));
+    for(j=0; j<h[i]; j++) printf("*");
     printf("\n");
   }
 }
@@ -80,41 +84,38 @@ void option_g(const char fname[]){
 /*-------------------------------------------------------*/
   
 int main(int argc, char *argv[]){
-  int option=1, leng,fs=0;
+  int len,fs=0;
+  int frag_n=0, frag_a=0, frag_g=0;
   char opt;
-   
-  while((opt = getopt(argc, argv, "nagh:"))!= -1){
+  char file_name[FILE_NAME_MAX]={'\0'};
+  
+  while((opt = getopt(argc, argv, "nagh:")) != -1){
     switch (opt){
     case 'n':
-      option*=2;
-      break;
-      
+      frag_n=1;
+      break;     
     case 'a':
-      option*=3;
+      frag_a=1;
       break;
-      
     case 'g':
-      option*=5;
-      break;
-      
+      frag_g=1;
+      break;    
     default:
       Usage();
-      
     }
   }
   
-  if(option==1)
-    Usage();
+  if((frag_n + frag_a + frag_g) == 0) Usage();
   
   if(argv[optind]=='\0'){
-    argv[optind]="rand.txt";
+    strcpy(file_name, "rand.txt");
     fs=1;
   }
-  leng=option_n(option,fs,argv[optind]);
-  if(option%3==0)
-    option_a(leng,argv[optind]);
-  if(option%5==0)
-    option_g(argv[optind]);
-    
+  else strcpy(file_name, argv[optind]);
+  
+  len=count_line(frag_n, fs, file_name);
+  if(frag_a) statistics(len, file_name);
+  if(frag_g) histogram(file_name);
+  
   return 0;
 }

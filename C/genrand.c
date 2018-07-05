@@ -1,17 +1,23 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+
 #define MAX 100
+
+/*-------------------------*/
+
 int main(void){
   int i;
-  double a;
+  double rand_data;
   time_t tp;
+  
   time(&tp);
   srand48(tp);
 
   for(i=0; i<MAX; i++){
-    a = drand48();
-    printf("%lf\n",a);
+    rand_data = drand48();
+    printf("%lf\n",rand_data);
   }
+  
   return 0;
 }
