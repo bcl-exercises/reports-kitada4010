@@ -46,6 +46,8 @@ work7-2_b: work7-2_b.o mylib.o
 	${GCC} ${CFLAGS} mylib.o work7-2_b.o -o work7-2_b -lm
 array: array.c
 	${GCC} ${CFLAGS} -o array array.c
+array2: array2.c
+	${GCC} ${CFLAGS} -o array2 array2.c
 showarg: showarg.c
 	${GCC} ${CFLAGS} -o showarg showarg.c
 sum: sum.c
