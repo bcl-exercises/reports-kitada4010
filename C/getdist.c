@@ -21,7 +21,7 @@ void Usage(void){
 }
 
 
-int count_line(int frag_n, const char fname[]){
+int count_data(int frag_n, const char fname[]){   //data数を数える関数
   int i=1;
   double x;
   FILE* input;
@@ -112,7 +112,7 @@ int main(int argc, char *argv[]){
   
   strcpy(file_name, argv[optind]);
   
-  len=count_line(frag_n, file_name);
+  len=count_data(frag_n, file_name);
   if(frag_a) statistics(len, file_name);
   if(frag_g) histogram(file_name);
   
