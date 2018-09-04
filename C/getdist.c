@@ -3,10 +3,11 @@
 #include<math.h>
 #include<unistd.h>
 #include<string.h>
+#include<float.h>
 #include "mylib.h"
 
 #define FILE_LENG 100
-#define  STRIDE 10
+#define  DIVIDE 10
 #define FILE_NAME_MAX 256
 
 void Usage(void){
@@ -21,34 +22,26 @@ void Usage(void){
 }
 
 
-int count_data(int frag_n, const char fname[]){   //data数を数える関数
+int count_data(int frag_n, FILE* randfp){   //data数を数える関数
   int i=1;
   double x;
-  FILE* input;
-
-  input=fRopen(fname);
   
-  while((fscanf(input, "%lf", &x))!=EOF){
+  while((fscanf(randfp, "%lf", &x))!=EOF){
     if(frag_n) printf("%d\t%lf\n", i, x);
     i++;
   }
-  
-  fclose(input);
 
   return i-1;
 }
 
 
-void statistics(int len, const char fname[]){
-  double average=0.0, reciprocal=1.0/((double)len);
-  double max=0.0, min=1.0;
+void statistics(int len, FILE* randfp){
+  double average=0.0, reciprocal=1.0/((double)len); //reciprocal=data数の逆数を格納
+  double max=DBL_MIN, min=DBL_MAX;
   double rand_data;
-  double stde=0.0;
-  FILE *input;
+  double stde=0.0; //stde=standard deviationを計算するための変数
 
-  input=fRopen(fname);
-
-  while((fscanf(input, "%lf", &rand_data)) != EOF){
+  while((fscanf(randfp, "%lf", &rand_data)) != EOF){
     average+=rand_data;
     stde+=rand_data*rand_data;
     if(max < rand_data) max=rand_data;
@@ -59,24 +52,18 @@ void statistics(int len, const char fname[]){
   printf("standard deviation:%lf\n", sqrt(reciprocal*stde));
   printf("minimum:%lf\n", min);
   printf("maximum:%lf\n", max);
-  
-  fclose(input);
+
 }
 
 
-void histogram(const char fname[]){
-  int h[STRIDE]={0};
+void histogram(FILE* randfp){
+  int h[DIVIDE]={0};
   int i, j;
-  double stride=1.0/STRIDE, rand_data;
-  FILE* input;
-  double n=STRIDE;
-
-  input=fRopen(fname);
+  double stride=1.0/DIVIDE, rand_data;
+  double n=DIVIDE;
   
-  while((fscanf(input, "%lf", &rand_data)) != EOF)
+  while((fscanf(randfp, "%lf", &rand_data)) != EOF)
     h[(int)(rand_data*n)]++;
-  
-  fclose(input);
   
   for(i=0; i<n; i++){
     printf("%.2f-%.2f:", (i*stride), ((i+1)*stride));
@@ -88,9 +75,10 @@ void histogram(const char fname[]){
 /*------------------------------------------------------*/
   
 int main(int argc, char *argv[]){
-  int opt, len;
+  int opt, data_len; //data_len=dataの長さを格納する変数
   int frag_n=0, frag_a=0, frag_g=0;
   char file_name[FILE_NAME_MAX];
+  FILE* randfp;
   
   while( (opt = getopt(argc, argv, "gnah:")) != -1){
     switch(opt){
@@ -112,9 +100,19 @@ int main(int argc, char *argv[]){
   
   strcpy(file_name, argv[optind]);
   
-  len=count_data(frag_n, file_name);
-  if(frag_a) statistics(len, file_name);
-  if(frag_g) histogram(file_name);
+  randfp=fRopen(file_name);
+  data_len=count_data(frag_n, randfp);
+  fclose(randfp);
+  if(frag_a){
+    randfp=fRopen(file_name);
+    statistics(data_len, randfp);
+    fclose(randfp);
+  }
+  if(frag_g){
+    randfp=fRopen(file_name);
+    histogram(randfp);
+    fclose(randfp);
+  }
   
   return 0;
 }
