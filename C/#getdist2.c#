@@ -5,6 +5,7 @@
 #include<string.h>
 #include "mylib.h"
 
+#define FILE
 #define FILE_LENG 100
 #define  STRIDE 10
 #define FILE_NAME_MAX 256
@@ -16,23 +17,24 @@ void Usage(void){
   printf("-n) with line number\n");
   printf("-a) <average> <standard deviation> <minimum> <maximum>\n");
   printf("-g) histogram\n");
-  
+
   exit(0);
 }
 
-
-int count_line(int frag_n, const char fname[]){
+int count_line(int frag_n, int fs, char fname[]){
   int i=1;
   double x;
   FILE* input;
 
-  input=fRopen(fname);
-  
-  while((fscanf(input, "%lf", &x))!=EOF){
-    if(frag_n) printf("%d\t%lf\n", i, x);
+  if(fs) input=fRopen(fname);
+  else input=fRPopen();
+
+  while((fscanf(input, "%lf", &x)) != EOF){
+    if(frag_n)
+      printf("%d\t%lf\n", i, x);
     i++;
   }
-  
+
   fclose(input);
 
   return i-1;
@@ -47,22 +49,21 @@ void statistics(int len, const char fname[]){
   FILE *input;
 
   input=fRopen(fname);
-
+  
   while((fscanf(input, "%lf", &rand_data)) != EOF){
     average+=rand_data;
     stde+=rand_data*rand_data;
-    if(max < rand_data) max=rand_data;
-    if(min > rand_data) min=rand_data;
+    if(max<rand_data) max=rand_data;
+    if(min>rand_data) min=rand_data;
   }
   
   printf("average:%lf\n", (reciprocal*average));
   printf("standard deviation:%lf\n", sqrt(reciprocal*stde));
   printf("minimum:%lf\n", min);
   printf("maximum:%lf\n", max);
-  
+
   fclose(input);
 }
-
 
 void histogram(const char fname[]){
   int h[STRIDE]={0};
@@ -75,7 +76,7 @@ void histogram(const char fname[]){
   
   while((fscanf(input, "%lf", &rand_data)) != EOF)
     h[(int)(rand_data*n)]++;
-  
+
   fclose(input);
   
   for(i=0; i<n; i++){
@@ -85,35 +86,41 @@ void histogram(const char fname[]){
   }
 }
 
-/*------------------------------------------------------*/
+
+/*-------------------------------------------------------*/
   
 int main(int argc, char *argv[]){
-  int opt, len;
+  int len,fs=0;
   int frag_n=0, frag_a=0, frag_g=0;
-  char file_name[FILE_NAME_MAX];
+  char opt;
+  char file_name[FILE_NAME_MAX]={'\0'};
   
-  while( (opt = getopt(argc, argv, "gnah:")) != -1){
-    switch(opt){
+  while((opt = getopt(argc, argv, "nagh:")) != -1){
+    switch (opt){
     case 'n':
       frag_n=1;
-      break;  
+      break;     
     case 'a':
       frag_a=1;
       break;
     case 'g':
       frag_g=1;
-      break;
+      break;    
     default:
       Usage();
     }
   }
+  
+  if((frag_n + frag_a + frag_g) == 0) Usage();
+  
+  if(argv[optind]=='\0'){
+    strcpy(file_name, "rand.txt");
+    fs=1;
+  }
 
-  if((frag_n + frag_a + frag_g) == 0)
-    Usage();
+  else strcpy(file_name, argv[optind]);
   
-  strcpy(file_name, argv[optind]);
-  
-  len=count_line(frag_n, file_name);
+  len=count_line(frag_n, fs, file_name);
   if(frag_a) statistics(len, file_name);
   if(frag_g) histogram(file_name);
   
