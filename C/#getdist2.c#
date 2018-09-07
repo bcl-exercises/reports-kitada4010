@@ -3,6 +3,7 @@
 #include<math.h>
 #include<unistd.h>
 #include<string.h>
+#include<float.h>
 #include "mylib.h"
 
 #define FILE
@@ -21,7 +22,7 @@ void Usage(void){
   exit(0);
 }
 
-int count_line(int frag_n, int fs, char fname[]){
+int count_data(int frag_n, int fs, char fname[]){
   int i=1;
   double x;
   FILE* input;
@@ -94,6 +95,15 @@ int main(int argc, char *argv[]){
   int frag_n=0, frag_a=0, frag_g=0;
   char opt;
   char file_name[FILE_NAME_MAX]={'\0'};
+  FILE* rand_data;
+  FILE* output_datafp;
+  
+#ifdef FILE
+  output=fopen("result.dat", "w");
+#elif
+  output=*stdout;
+#endif
+  
   
   while((opt = getopt(argc, argv, "nagh:")) != -1){
     switch (opt){
