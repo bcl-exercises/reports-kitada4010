@@ -8,7 +8,7 @@
 #define Y0 1.5 //初期位置(縦軸)
 #define H 0.0001 //刻み値
 #define G 9.8 //重力加速度
-#define FNAMEMAX 256 //ファイル名の最大文字数
+#define MAX 256 //
 
 void Usage(void){
   printf("Usage: work7-2_b <mass[kg]> <angle[°]> <initial velocity[m/s]>\n");
@@ -24,7 +24,7 @@ int main(int argc, char *argv[]){
   double m,theta,v0;
   double v0sin, v0cos;
   double time=0;
-  char fname[FNAMEMAX]={'\0'};
+  char fname[MAX]={'\0'};
   FILE* outfp;
 
   if(argc!=4)

@@ -30,7 +30,7 @@ getdist.o: getdist.c mylib.h
 getdist: mylib.o getdist.o
 	${GCC} ${CFLAGS} mylib.o $@.o -o $@ ${Loadlibs}
 getdist2.o: getdist2.c mylib.h
-	${GCC} ${CFLAGS} -c $@.c ${Loadlibs}
+	${GCC} ${CFLAGS} -c getdist2.c ${Loadlibs}
 getdist2: mylib.o getdist2.o
 	${GCC} ${CFLAGS} mylib.o $@.o -o $@ ${Loadlibs}
 clean:

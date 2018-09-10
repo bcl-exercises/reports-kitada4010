@@ -6,9 +6,9 @@
 #include<float.h>
 #include "mylib.h"
 
-#define FILE
+//#define FILEOUT
 #define FILE_LENG 100
-#define  STRIDE 10
+#define  DIVIDE 10
 #define FILE_NAME_MAX 256
 
 void Usage(void){
@@ -22,68 +22,53 @@ void Usage(void){
   exit(0);
 }
 
-int count_data(int frag_n, int fs, char fname[]){
+int count_data(int frag_n, FILE *infp, FILE *outfp){
   int i=1;
   double x;
-  FILE* input;
 
-  if(fs) input=fRopen(fname);
-  else input=fRPopen();
-
-  while((fscanf(input, "%lf", &x)) != EOF){
+  while((fscanf(infp, "%lf", &x)) != EOF){
     if(frag_n)
-      printf("%d\t%lf\n", i, x);
+      fprintf(outfp, "%d\t%lf\n", i, x);
     i++;
   }
-
-  fclose(input);
-
+  
   return i-1;
 }
 
 
-void statistics(int len, const char fname[]){
-  double average=0.0, reciprocal=1.0/((double)len);
+void statistics(int data_len, FILE *infp, FILE *outfp){
+  double average=0.0, reciprocal=1.0/((double)data_len);
   double max=0.0, min=1.0;
   double rand_data;
   double stde=0.0;
-  FILE *input;
-
-  input=fRopen(fname);
   
-  while((fscanf(input, "%lf", &rand_data)) != EOF){
+  while((fscanf(infp, "%lf", &rand_data)) != EOF){
     average+=rand_data;
     stde+=rand_data*rand_data;
     if(max<rand_data) max=rand_data;
     if(min>rand_data) min=rand_data;
   }
   
-  printf("average:%lf\n", (reciprocal*average));
-  printf("standard deviation:%lf\n", sqrt(reciprocal*stde));
-  printf("minimum:%lf\n", min);
-  printf("maximum:%lf\n", max);
+  fprintf(outfp, "average:%lf\n", (reciprocal*average));
+  fprintf(outfp, "standard deviation:%lf\n", sqrt(reciprocal*stde));
+  fprintf(outfp, "minimum:%lf\n", min);
+  fprintf(outfp, "maximum:%lf\n", max);
 
-  fclose(input);
 }
 
-void histogram(const char fname[]){
-  int h[STRIDE]={0};
+void histogram(FILE *infp, FILE *outfp){
+  int h[DIVIDE]={0};
   int i, j;
-  double stride=1.0/STRIDE, rand_data;
-  FILE* input;
-  double n=STRIDE;
+  double stride=1.0/DIVIDE, rand_data;
+  double n=DIVIDE;
 
-  input=fRopen(fname);
-  
-  while((fscanf(input, "%lf", &rand_data)) != EOF)
+  while((fscanf(infp, "%lf", &rand_data)) != EOF)
     h[(int)(rand_data*n)]++;
-
-  fclose(input);
   
   for(i=0; i<n; i++){
-    printf("%.2f-%.2f:", (i*stride), ((i+1)*stride));
-    for(j=0; j<h[i]; j++) printf("*");
-    printf("\n");
+    fprintf(outfp, "%.2f-%.2f:", (i*stride), ((i+1)*stride));
+    for(j=0; j<h[i]; j++) fprintf(outfp, "*");
+    fprintf(outfp, "\n");
   }
 }
 
@@ -91,19 +76,19 @@ void histogram(const char fname[]){
 /*-------------------------------------------------------*/
   
 int main(int argc, char *argv[]){
-  int len,fs=0;
+  int data_len;
   int frag_n=0, frag_a=0, frag_g=0;
   char opt;
   char file_name[FILE_NAME_MAX]={'\0'};
-  FILE* rand_data;
-  FILE* output_datafp;
-  
-#ifdef FILE
-  output=fopen("result.dat", "w");
-#elif
-  output=*stdout;
+  FILE* infp;
+  FILE* outfp;
+
+#ifdef FILEOUT
+  outfp=fopen("result.dat", "w");
+#else
+  outfp=stdout;
 #endif
-  
+
   
   while((opt = getopt(argc, argv, "nagh:")) != -1){
     switch (opt){
@@ -122,17 +107,29 @@ int main(int argc, char *argv[]){
   }
   
   if((frag_n + frag_a + frag_g) == 0) Usage();
-  
+
   if(argv[optind]=='\0'){
-    strcpy(file_name, "rand.txt");
-    fs=1;
+    infp=fRPopen();
+  }
+  
+  else{
+    strcpy(file_name, argv[optind]);
+    infp=fRopen(file_name);
   }
 
-  else strcpy(file_name, argv[optind]);
+  data_len=count_data(frag_n, infp, outfp);
   
-  len=count_line(frag_n, fs, file_name);
-  if(frag_a) statistics(len, file_name);
-  if(frag_g) histogram(file_name);
-  
+  if(frag_a){
+    rewind(infp);
+    statistics(data_len, infp, outfp);
+  }
+  if(frag_g){
+    rewind(infp);
+    histogram(infp, outfp);
+  }
+
+  fclose(infp);
+  fclose(outfp);
+
   return 0;
 }

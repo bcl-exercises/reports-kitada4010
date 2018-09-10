@@ -6,7 +6,7 @@
 #include<float.h>
 #include "mylib.h"
 
-#define FILEOUT 
+//#define FILEOUT 
 #define FILE_LENG 100
 #define  DIVIDE 10
 #define FILE_NAME_MAX 256
@@ -23,12 +23,12 @@ void Usage(void){
 }
 
 
-int count_data(int frag_n, FILE *randfp, FILE *output_datafp){   //data数を数える関数
+int count_data(int frag_n, FILE *infp, FILE *outfp){   //data数を数える関数
   int i=1;
   double x;
   
-  while((fscanf(randfp, "%lf", &x))!=EOF){
-    if(frag_n) fprintf(output_datafp, "%d\t%lf\n", i, x);
+  while((fscanf(infp, "%lf", &x))!=EOF){
+    if(frag_n) fprintf(outfp, "%d\t%lf\n", i, x);
     i++;
   }
 
@@ -36,40 +36,40 @@ int count_data(int frag_n, FILE *randfp, FILE *output_datafp){   //data数を数
 }
 
 
-void statistics(int len, FILE *randfp, FILE *output_datafp){
+void statistics(int len, FILE *infp, FILE *outfp){
   double average=0.0, reciprocal=1.0/((double)len); //reciprocal=data数の逆数を格納
   double max=DBL_MIN, min=DBL_MAX;
   double rand_data;
   double stde=0.0; //stde=standard deviationを計算するための変数
 
-  while((fscanf(randfp, "%lf", &rand_data)) != EOF){
+  while((fscanf(infp, "%lf", &rand_data)) != EOF){
     average+=rand_data;
     stde+=rand_data*rand_data;
     if(max < rand_data) max=rand_data;
     if(min > rand_data) min=rand_data;
-  }
+  } 
   
-  fprintf(output_datafp, "average:%lf\n", (reciprocal*average));
-  fprintf(output_datafp, "standard deviation:%lf\n", sqrt(reciprocal*stde));
-  fprintf(output_datafp, "minimum:%lf\n", min);
-  fprintf(output_datafp, "maximum:%lf\n", max);
+  fprintf(outfp, "average:%lf\n", (reciprocal*average));
+  fprintf(outfp, "standard deviation:%lf\n", sqrt(reciprocal*stde));
+  fprintf(outfp, "minimum:%lf\n", min);
+  fprintf(outfp, "maximum:%lf\n", max);
 
 }
 
 
-void histogram(FILE *randfp, FILE *output_datafp){
+void histogram(FILE *infp, FILE *outfp){
   int h[DIVIDE]={0};
   int i, j;
   double stride=1.0/DIVIDE, rand_data;
   double n=DIVIDE;
   
-  while((fscanf(randfp, "%lf", &rand_data)) != EOF)
+  while((fscanf(infp, "%lf", &rand_data)) != EOF)
     h[(int)(rand_data*n)]++;
   
   for(i=0; i<n; i++){
-    fprintf(output_datafp, "%.2f-%.2f:", (i*stride), ((i+1)*stride));
-    for(j=0; j<h[i]; j++) fprintf(output_datafp, "*");
-    fprintf(output_datafp, "\n");
+    fprintf(outfp, "%.2f-%.2f:", (i*stride), ((i+1)*stride));
+    for(j=0; j<h[i]; j++) fprintf(outfp, "*");
+    fprintf(outfp, "\n");
   }
 }
 
@@ -79,16 +79,16 @@ int main(int argc, char *argv[]){
   int opt, data_len; //data_len=dataの長さを格納する変数
   int frag_n=0, frag_a=0, frag_g=0;
   char file_name[FILE_NAME_MAX];
-  FILE* randfp;
-  FILE* output_datafp;
+  FILE* infp;
+  FILE* outfp;
   
 #ifdef FILEOUT
-  if((output_datafp=fopen("result.dat", "w"))==NULL){
+  if((outfp=fopen("result.dat", "w"))==NULL){
     return 0;
   }
-  // output_datafp=stdout;
+  // outfp=stdout;
 #else
-  output_datafp=stdout;
+  outfp=stdout;
 #endif
   
   while( (opt = getopt(argc, argv, "gnah:")) != -1){
@@ -111,20 +111,20 @@ int main(int argc, char *argv[]){
   
   strcpy(file_name, argv[optind]);
   
-  randfp=fRopen(file_name);
-  data_len=count_data(frag_n, randfp, output_datafp);
-  fclose(randfp);
+  infp=fRopen(file_name);
+  data_len=count_data(frag_n, infp, outfp);
+  
   if(frag_a){
-    randfp=fRopen(file_name);
-    statistics(data_len, randfp, output_datafp);
-    fclose(randfp);
+    rewind(infp);
+    statistics(data_len, infp, outfp);
   }
   if(frag_g){
-    randfp=fRopen(file_name);
-    histogram(randfp, output_datafp);
-    fclose(randfp);
+    rewind(infp);
+    histogram(infp, outfp);
   }
-  fclose(output_datafp);
+  
+  fclose(infp);
+  fclose(outfp);
   
   return 0;
 }
