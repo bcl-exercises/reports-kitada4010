@@ -73,6 +73,7 @@ void histogram(FILE *infp, FILE *outfp){
   }
 }
 
+
 /*------------------------------------------------------*/
   
 int main(int argc, char *argv[]){
@@ -86,7 +87,10 @@ int main(int argc, char *argv[]){
   if((outfp=fopen("result.dat", "w"))==NULL){
     return 0;
   }
+<<<<<<< HEAD
   // outfp=stdout;
+=======
+>>>>>>> eb99e1fc762cbff6513751a8921636e88f78f459
 #else
   outfp=stdout;
 #endif
@@ -113,6 +117,7 @@ int main(int argc, char *argv[]){
   
   infp=fRopen(file_name);
   data_len=count_data(frag_n, infp, outfp);
+<<<<<<< HEAD
   
   if(frag_a){
     rewind(infp);
@@ -124,6 +129,19 @@ int main(int argc, char *argv[]){
   }
   
   fclose(infp);
+=======
+  fclose(infp);
+  if(frag_a){
+    infp=fRopen(file_name);
+    statistics(data_len, infp, outfp);
+    fclose(infp);
+  }
+  if(frag_g){
+    infp=fRopen(file_name);
+    histogram(infp, outfp);
+    fclose(infp);
+  }
+>>>>>>> eb99e1fc762cbff6513751a8921636e88f78f459
   fclose(outfp);
   
   return 0;

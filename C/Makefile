@@ -29,7 +29,11 @@ getdist.o: getdist.c mylib.h
 	${GCC} ${CFLAGS} -c getdist.c ${Loadlibs}
 getdist: mylib.o getdist.o
 	${GCC} ${CFLAGS} mylib.o $@.o -o $@ ${Loadlibs}
+<<<<<<< HEAD
 getdist2.o: getdist2.c mylib.h
+=======
+getdist2.o: getdist2.c mylib.h 
+>>>>>>> eb99e1fc762cbff6513751a8921636e88f78f459
 	${GCC} ${CFLAGS} -c getdist2.c ${Loadlibs}
 getdist2: mylib.o getdist2.o
 	${GCC} ${CFLAGS} mylib.o $@.o -o $@ ${Loadlibs}
