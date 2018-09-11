@@ -20,33 +20,35 @@ void Usage(void){
 
 
 int main(int argc, char *argv[]){
-  double t=T0, x=X0, y=Y0, h=H, g=G; //
-  double m,theta,v0;
-  double v0sin, v0cos;
-  double time=0;
-  char fname[FNAMEMAX]={'\0'};
+  double t=T0, x=X0, y=Y0, h=H, g=G; //t:初期時間 x:位置(横軸) y:位置(縦軸) h:刻み値 g:重力加速度
+  double m,theta,v; //m:質量 theta:進行方向の角度 v:速度
+  double vsin, vcos; //vsin:縦方向の速度 vcos:横方向の速度
+  double time=0; //経過時間
+  char fname[FNAMEMAX]={'\0'}; //ファイル名
   FILE* outfp;
 
   if(argc!=4)
     Usage();
   
-  if((m=atof(argv[1]))==0 || (v0=atof(argv[3]))==0)
+  if((m=atof(argv[1]))==0 || (v=atof(argv[3]))==0)
     Usage();
   
   theta=atof(argv[2]);
-  sprintf(fname,"m:%.3f_θ:%.2f_v0:%.3f-data",m,theta,v0); 
   
+  sprintf(fname,"m:%.3f_θ:%.2f_v:%.3f-data",m,theta,v); 
   outfp=fWopen(fname);
+  
   theta=(theta*M_PI)/180.0;
   
-  v0sin=v0*sin(theta);
-  v0cos=v0*cos(theta);
+  vsin=v*sin(theta);
+  vcos=v*cos(theta);
   
   fprintf(outfp,"%lf\t%lf\t%lf\n",t,x,y);
+
   while(y>0){
-    x+=h*v0cos;
+    x+=h*vcos;
     time+=h;
-    y+=h*((-g*time)+v0sin);
+    y+=h*((-g*time)+vsin);
     fprintf(outfp,"%lf\t%lf\t%lf\n",t+time,x,y);
   }
   
