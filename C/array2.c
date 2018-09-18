@@ -22,22 +22,22 @@ void 2d_array_cordon_off(int **a, int n){
 
 }*/
 
-void write_identity_matrix(int **a, int n){
+void write_identity_matrix(int **a, int n , int m){
   int i,j;
   
   for(i=0; i<n; i++){
-    for(j=0; j<n; j++){
+    for(j=0; j<m; j++){
       if(i==j) a[i][j]=1;
       else a[i][j]=0;
     }
   }
 }	  
 
-void display_2d_array(int **a, int n){
+void display_2d_array(int **a, int n, int m){
   int i,j;
   
   for(i=0; i<n; i++){
-    for(j=0; j<n; j++) printf("%3d ", a[i][j]);
+    for(j=0; j<m; j++) printf("%3d ", a[i][j]);
     printf("\n");
   }
 }
@@ -66,8 +66,8 @@ int main(int argc, char *argv[]){
     }
   }
 
-  write_identity_matrix(a, n);
-  display_2d_array(a, n);
+  write_identity_matrix(a, n, n);
+  display_2d_array(a, n, n);
   for(i=0; i<n; i++) free(a[i]);
   free(a);
 
