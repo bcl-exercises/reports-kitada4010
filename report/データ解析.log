@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.7-160201-2.6 (utf8.euc) (TeX Live 2016) (preloaded format=platex 2016.12.6)  22 AUG 2018 17:42
+This is e-pTeX, Version 3.14159265-p3.7-160201-2.6 (utf8.euc) (TeX Live 2016) (preloaded format=platex 2016.12.6)  13 SEP 2018 18:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -285,63 +285,79 @@ File: images/kkdata2.eps Graphic file (type eps)
  <images/kkdata2.eps> [3]
 File: images/hikakudata1.eps Graphic file (type eps)
  <images/hikakudata1.eps>
-File: images/hikakudata2.eps Graphic file (type eps)
+Overfull \hbox (30.60367pt too wide) in paragraph at lines 256--261
+ [] 
+ []
 
-<images/hikakudata2.eps> [4]
+File: images/hikakudata2.eps Graphic file (type eps)
+<images/hikakudata2.eps>
+Overfull \hbox (30.60367pt too wide) in paragraph at lines 264--265
+ [][] 
+ []
+
+[4]
 File: images/hikakudata3.eps Graphic file (type eps)
  <images/hikakudata3.eps>
-File: images/hikakudata4.eps Graphic file (type eps)
- <images/hikakudata4.eps>
-[5] [6] [7]
-LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 6.72699pt on input line 369.
-LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 6.72699pt on input line 370.
+Overfull \hbox (30.60367pt too wide) in paragraph at lines 277--282
+ [] 
+ []
 
-Overfull \hbox (9.54506pt too wide) in paragraph at lines 431--431
+File: images/hikakudata4.eps Graphic file (type eps)
+<images/hikakudata4.eps>
+Overfull \hbox (30.60367pt too wide) in paragraph at lines 285--286
+ [][] 
+ []
+
+[5] [6]
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 6.72699pt on input line 394.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 6.72699pt on input line 395.
+
+Overfull \hbox (9.54506pt too wide) in paragraph at lines 456--456
 []    \OT1/cmtt/m/n/7 60 ef = open('bandpass11_1.txt','w',encoding="shift-jis")
 [] 
  []
 
 
-Overfull \hbox (13.26385pt too wide) in paragraph at lines 453--453
+Overfull \hbox (13.26385pt too wide) in paragraph at lines 478--478
 []    \OT1/cmtt/m/n/7 10   while((fscanf(rf,"%lf,%lf",&data[0],&data[1]))!=EOF)
 {[] 
  []
 
 
-Overfull \hbox (2.10747pt too wide) in paragraph at lines 483--483
+Overfull \hbox (2.10747pt too wide) in paragraph at lines 508--508
 []    \OT1/cmtt/m/n/7 17 /*------------------------------------------------*/[]
  
  []
 
-[8]
-Overfull \hbox (35.57663pt too wide) in paragraph at lines 524--524
+[7]
+Overfull \hbox (35.57663pt too wide) in paragraph at lines 549--549
 []    \OT1/cmtt/m/n/7 58     fprintf(wf,"%lf,%lf\n",((double)(i+(DT/2))/1000.0)
 ,a[i]);[] 
  []
 
 
-Overfull \hbox (16.98265pt too wide) in paragraph at lines 577--577
+Overfull \hbox (16.98265pt too wide) in paragraph at lines 602--602
 []    \OT1/cmtt/m/n/7 (makar = atoi(argv[2])) ==0 || (dmen = atoi(argv[3]))==0 
 ){[] 
  []
 
 
-Overfull \hbox (13.26385pt too wide) in paragraph at lines 599--599
+Overfull \hbox (13.26385pt too wide) in paragraph at lines 624--624
 []    \OT1/cmtt/m/n/7 36   while(fscanf(rf,"%lf ,%lf ",&data[0],&data[1])!=EOF)
 {[] 
  []
 
-[9] [10] (./ã^^83^^86ã^^82^^99ã^^83è‹¥^^82ç²‹Ð’æ^^9e^^90.aux) ) 
+[8] [9] (./ã^^83^^86ã^^82^^99ã^^83è‹¥^^82ç²‹Ð’æ^^9e^^90.aux) ) 
 Here is how much of TeX's memory you used:
- 1889 strings out of 493693
- 23453 string characters out of 6149787
+ 1886 strings out of 493693
+ 23426 string characters out of 6149787
  109255 words of memory out of 5000000
- 5418 multiletter control sequences out of 15000+600000
+ 5415 multiletter control sequences out of 15000+600000
  23517 words of font info for 104 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 27i,6n,21p,940b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,6n,21p,590b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ã^^83^^86ã^^82^^99ã^^83è‹¥^^82ç²‹Ð’æ^^9e^^90.dvi (10 pages, 257
-96 bytes).
+Output written on ã^^83^^86ã^^82^^99ã^^83è‹¥^^82ç²‹Ð’æ^^9e^^90.dvi (9 pages, 2511
+6 bytes).

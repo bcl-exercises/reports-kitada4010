@@ -83,17 +83,6 @@ int main(int argc, char *argv[]){
   FILE* infp;
   FILE* outfp;
   
-#ifdef FILEOUT
-  if((outfp=fopen("result.dat", "w"))==NULL){
-    return 0;
-  }
-<<<<<<< HEAD
-  // outfp=stdout;
-=======
->>>>>>> eb99e1fc762cbff6513751a8921636e88f78f459
-#else
-  outfp=stdout;
-#endif
   
   while( (opt = getopt(argc, argv, "gnah:")) != -1){
     switch(opt){
@@ -116,8 +105,17 @@ int main(int argc, char *argv[]){
   strcpy(file_name, argv[optind]);
   
   infp=fRopen(file_name);
+
+#ifdef FILEOUT
+  if((outfp=fopen("result.dat", "w"))==NULL){
+    return 0;
+  }
+#else
+  outfp=stdout;
+#endif
+  
+
   data_len=count_data(frag_n, infp, outfp);
-<<<<<<< HEAD
   
   if(frag_a){
     rewind(infp);
@@ -129,19 +127,6 @@ int main(int argc, char *argv[]){
   }
   
   fclose(infp);
-=======
-  fclose(infp);
-  if(frag_a){
-    infp=fRopen(file_name);
-    statistics(data_len, infp, outfp);
-    fclose(infp);
-  }
-  if(frag_g){
-    infp=fRopen(file_name);
-    histogram(infp, outfp);
-    fclose(infp);
-  }
->>>>>>> eb99e1fc762cbff6513751a8921636e88f78f459
   fclose(outfp);
   
   return 0;
