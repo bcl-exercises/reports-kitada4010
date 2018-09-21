@@ -8,7 +8,7 @@
 
 //#define FILEOUT 
 #define FILE_LENG 100
-#define  DIVIDE 10
+#define  DIVIDE_HISTO 10
 #define FILE_NAME_MAX 256
 
 void Usage(void){
@@ -39,19 +39,19 @@ void statistics(FILE *infp, FILE *outfp){
   int data_len=0;  //data_len=data数を格納
   double average=0.0; 
   double max=DBL_MIN, min=DBL_MAX;
-  double rand_data;
-  double stde=0.0; //stde=standard deviationを計算するための変数
+  double infp_data;
+  double variance=0.0; //variance=分散を格納
 
-  while((fscanf(infp, "%lf", &rand_data)) != EOF){
-    average+=rand_data;
-    stde+=rand_data*rand_data;
-    if(max < rand_data) max=rand_data;
-    if(min > rand_data) min=rand_data;
+  while((fscanf(infp, "%lf", &infp_data)) != EOF){
+    average+=infp_data;
+    variance+=infp_data*infp_data;
+    if(max < infp_data) max=infp_data;
+    if(min > infp_data) min=infp_data;
     data_len++;
   } 
   
   fprintf(outfp, "average:%lf\n", ( average/(double)data_len ));
-  fprintf(outfp, "standard deviation:%lf\n", sqrt(stde/(double)data_len));
+  fprintf(outfp, "standard deviation:%lf\n", sqrt(variance/(double)data_len));
   fprintf(outfp, "minimum:%lf\n", min);
   fprintf(outfp, "maximum:%lf\n", max);
 
@@ -59,16 +59,16 @@ void statistics(FILE *infp, FILE *outfp){
 
 
 void histogram(FILE *infp, FILE *outfp){
-  int h[DIVIDE]={0};
+  int h[DIVIDE_HISTO]={0};
   int i, j;
-  double stride=1.0/DIVIDE, rand_data;
-  double n=DIVIDE;
+  double histo_bins=1.0/DIVIDE_HISTO, infp_data;
+  double n=DIVIDE_HISTO;
   
-  while((fscanf(infp, "%lf", &rand_data)) != EOF)
-    h[(int)(rand_data*n)]++;
+  while((fscanf(infp, "%lf", &infp_data)) != EOF)
+    h[(int)(infp_data*n)]++;
   
   for(i=0; i<n; i++){
-    fprintf(outfp, "%.2f-%.2f:", (i*stride), ((i+1)*stride));
+    fprintf(outfp, "%.2f-%.2f:", (i*histo_bins), ((i+1)*histo_bins));
     for(j=0; j<h[i]; j++) fprintf(outfp, "*");
     fprintf(outfp, "\n");
   }
